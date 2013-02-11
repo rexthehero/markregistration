@@ -1,9 +1,12 @@
 <?php
  class UsersController extends Controller
  {
-	public function adduser($number, $number2, $number3)
+	public function adduser()
 	{
-		echo "ik doe het ".$number." keer".$number2." | ".$number3;
+		$headertekst = "Het is een beetje koud buiten!";
+		$this->set('headertekst', $headertekst );
+		$all_users = $this->_model->select_all();
+		$this->set('all_users', $all_users);
 	}
  }
 ?>
