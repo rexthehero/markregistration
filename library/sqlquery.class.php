@@ -28,8 +28,7 @@
 
 	public function query($query, $singleResult=0)
 	{
-		//echo $query;exit();
-		$this->_result = mysql_query($query, $this->_dbHandle);		
+		$this->_result = mysql_query($query, $this->_dbHandle);
 		if ( preg_match("/select/i", $query))
 		{
 			$result = array();
@@ -49,7 +48,7 @@
 				for ($i = 0; $i < $numOfFields; $i++)
 				{
 					$table[$i] = trim(ucfirst($table[$i]), "s");
-					$tempResults[$table[$i]][$field[$i]] = $row[$i]; //Hier stond haakje verkeert				
+					$tempResults[$table[$i]][$field[$i]] = $row[$i];
 				}
 				
 				if ($singleResult == 1)
@@ -59,10 +58,18 @@
 				}
 				array_push($result, $tempResults);			
 			}
-			//var_dump($result);
 			mysql_free_result($this->_result);
 			return $result;	
-		}	
+		}
+		if ( $this->_result == 0 )
+		{
+			return 1;
+		}		
+	}
+	
+	public function find_last_inserted_id()
+	{
+		return mysql_insert_id();
 	}
  }
 ?>
